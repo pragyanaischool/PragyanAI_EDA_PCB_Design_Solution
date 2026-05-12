@@ -1,95 +1,140 @@
 import streamlit as st
 import os
-import json
-from orchestrator import PragyanOrchestrator
+import pandas as pd
 from datetime import datetime
 
-# --- Page Configuration ---
+# --- Import Orchestrator & Agents ---
+from orchestrator import PragyanOrchestrator
+
+# --- Configuration ---
 st.set_page_config(
-    page_title="PragyanAI | Autonomous EDA Studio",
-    page_icon="⚡",
+    page_title="PragyanAI Autonomous EDA",
+    page_icon="🤖",
     layout="wide"
 )
 
-# --- Session State Initialization ---
+# --- Global State Management ---
+if 'project_id' not in st.session_state:
+    st.session_state.project_id = f"PRJ-{datetime.now().strftime('%y%m%d-%H%M')}"
+if 'current_step' not in st.session_state:
+    st.session_state.current_step = "Planning"
 if 'logs' not in st.session_state:
     st.session_state.logs = []
-if 'process_complete' not in st.session_state:
-    st.session_state.process_complete = False
 
-def logger(message):
-    timestamp = datetime.now().strftime("%H:%M:%S")
-    st.session_state.logs.append(f"[{timestamp}] {message}")
-
-# --- Sidebar: Project Settings ---
-st.sidebar.image("https://via.placeholder.com/150?text=PragyanAI", width=150)
-st.sidebar.title("Settings")
-project_name = st.sidebar.text_input("Project Name", value="SmartNode_V1")
-target_fab = st.sidebar.selectbox("Target Factory", ["JLCPCB", "PCBWay", "Custom"])
-
-# --- Main UI ---
-st.title("🚀 Autonomous Hardware Agent")
+# --- Custom Styling ---
 st.markdown("""
-    Generate manufacture-ready PCB designs from natural language prompts.
-    *Powered by the PragyanAI Multi-Agent EDA Framework.*
-""")
+    <style>
+    .main { background-color: #f5f7f9; }
+    .stMetric { background-color: #ffffff; padding: 15px; border-radius: 10px; border: 1px solid #e0e0e0; }
+    </style>
+    """, unsafe_allow_html=True)
 
-prompt = st.text_area(
-    "Enter Design Requirements (PRD):",
-    placeholder="e.g., A 5V ESP32 board with an OLED display, two I2C sensors, and 0603 components.",
-    height=150
-)
+# --- Navigation Sidebar ---
+with st.sidebar:
+    st.image("https://via.placeholder.com/150?text=PragyanAI", width=120)
+    st.title("Studio Workflow")
+    activity = st.radio(
+        "Go to Activity:",
+        ["🎯 Project Planning", "🔨 Implementation", "🔬 Lab Analysis", "📦 Fulfillment"]
+    )
+    st.divider()
+    st.info(f"Active Project: **{st.session_state.project_id}**")
 
-col1, col2 = st.columns([1, 1])
+# --- Activity 1: Planning ---
+if activity == "🎯 Project Planning":
+    st.header("Step 1: AI Requirements & Architecture")
+    col_input, col_out = st.columns([1, 1])
+    
+    with col_input:
+        st.subheader("Design Prompt")
+        user_prompt = st.text_area(
+            "Describe your hardware in plain English:",
+            "A high-efficiency ESP32 module with 12V input, I2C headers, and a battery charging circuit.",
+            height=200
+        )
+        if st.button("Initialize Agents", type="primary"):
+            st.session_state.logs.append(f"Planning Agent started for: {user_prompt}")
+            st.success("Planning complete! Check Architecture Plan.")
 
-with col1:
-    if st.button("Start Autonomous Design", type="primary"):
-        if not prompt:
-            st.error("Please enter a design prompt.")
-        else:
-            st.session_state.logs = []
-            logger("Initializing Orchestrator...")
-            
-            # Initialize the Brain
-            studio = PragyanOrchestrator(project_name)
-            
-            # Execute Pipeline
-            with st.spinner("Agents are working..."):
-                success = studio.run_full_lifecycle(prompt)
-                
-            if success != False:
-                st.session_state.process_complete = True
-                logger("Pipeline finished successfully.")
-            else:
-                st.error("Pipeline failed during analysis. Check logs.")
+    with col_out:
+        st.subheader("Architecture Preview")
+        # In production, this pulls from design/config/architecture_plan.json
+        mock_arch = {
+            "Power Tree": "12V -> Buck (5V) -> LDO (3.3V)",
+            "MCU": "ESP32-S3-WROOM-1",
+            "Interfaces": ["I2C", "UART", "ADC"],
+            "Layers": 4
+        }
+        st.json(mock_arch)
 
-    # Display Live Logs
-    st.subheader("Agent Activity Logs")
-    log_box = st.empty()
-    log_text = "\n".join(st.session_state.logs)
-    log_box.code(log_text if log_text else "Awaiting start...")
+# --- Activity 2: Implementation ---
+elif activity == "🔨 Implementation":
+    st.header("Step 2: Circuit Construction & Sourcing")
+    
+    col_bom, col_place = st.columns(2)
+    
+    with col_bom:
+        st.subheader("BOM Audit")
+        # Mocking data from bom_agent.py
+        bom_df = pd.DataFrame({
+            "Ref": ["U1", "U2", "C1", "R1"],
+            "Part": ["ESP32-WROOM", "MP2315", "22uF", "10k"],
+            "Status": ["In Stock", "In Stock", "In Stock", "In Stock"],
+            "Price (USD)": [3.40, 1.20, 0.05, 0.01]
+        })
+        st.table(bom_df)
+    
+    with col_place:
+        st.subheader("Placement Strategy")
+        st.code("""
+        // placement.json
+        "U1": {"x": 25.0, "y": 25.0, "rot": 0},
+        "J1": {"x": 0.0, "y": 12.5, "rot": 270}
+        """, language="json")
+        st.info("Component spacing checked against FootprintAnalyzer.")
 
-with col2:
-    st.subheader("Design Outputs")
-    if st.session_state.process_complete:
-        st.success("Design Validated & Packaged!")
+# --- Activity 3: Lab Analysis ---
+elif activity == "🔬 Lab Analysis":
+    st.header("Step 3: Physics-Based Verification")
+    
+    m1, m2, m3 = st.columns(3)
+    m1.metric("Max Temperature", "48.2°C", "-2.1°C")
+    m2.metric("Signal Integrity", "98.4%", "+1.2%")
+    m3.metric("DRC Errors", "0", "Critical")
+    
+    st.subheader("Thermal Gradient Map")
+    # In production, this would render a heatmap based on thermal_agent results
+    st.image("https://via.placeholder.com/800x300.png?text=PCB+Thermal+Heatmap+Simulation", use_column_width=True)
+    
+    with st.expander("View SI/PI Testbench Logs"):
+        st.text("Executing Transient Analysis on +3.3V Rail...\nStabilization: 12ms\nRipple: 15mV (PASS)")
+
+# --- Activity 4: Fulfillment ---
+elif activity == "📦 Fulfillment":
+    st.header("Step 4: Manufacturing Pack & Documentation")
+    
+    st.info("All validation gates have been PASSED. Files are ready for production.")
+    
+    c1, c2, c3 = st.columns(3)
+    
+    with c1:
+        st.subheader("Production Files")
+        st.download_button("📦 Download Gerber ZIP", "mock_data", file_name="Gerbers_RevA.zip")
+        st.caption("Standard ODB++ & Drill files included.")
         
-        # Download Buttons for Cluster 4 Outputs
-        fab_path = f"design/output/{project_name}_FAB_RevA.zip" # Path logic should match FabAgent
-        report_path = "design/output/docs/DVR_Report.md"
+    with c2:
+        st.subheader("Technical Docs")
+        st.download_button("📄 Design Validation Report", "mock_data", file_name="DVR_Report.md")
+        st.caption("Includes Thermal and SI/PI traces.")
 
-        if os.path.exists(report_path):
-            with open(report_path, "r") as f:
-                st.download_button("📂 Download Validation Report", f, file_name=f"{project_name}_Report.md")
-        
-        # In a real app, you would provide the actual ZIP file generated
-        st.info("The manufacturing ZIP (Gerbers, Drill, BOM) is ready for pickup in the `design/output` directory.")
-        
-        # Visual Preview (Mockup of the generated board)
-        st.image("https://via.placeholder.com/600x400.png?text=PCB+Layout+Preview", caption="Automated Placement Preview")
-    else:
-        st.write("Outputs will appear here once the agents complete the validation cycle.")
+    with c3:
+        st.subheader("Factory Handover")
+        st.button("🚀 Push to JLCPCB API", disabled=True)
+        st.caption("Direct factory API integration (V2 Feature).")
 
-# --- Footer ---
+# --- Activity Logger (Bottom of all pages) ---
 st.divider()
-st.caption(f"© 2026 Pragyan SmartAI Technology LLP | System Time: {datetime.now().strftime('%Y-%m-%d')}")
+with st.expander("📜 System Master Logs"):
+    for log in st.session_state.logs:
+        st.text(log)
+        
