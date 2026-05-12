@@ -1,0 +1,46 @@
+(kicad_symbol_lib (version 20211014) (generator PragyanAI_Component_Agent)
+  ;; =========================================================================
+  ;; AI-GENERATED SYMBOL: BME280
+  ;; SCRAPED FROM: Bosch Sensortec Datasheet
+  ;; TIMESTAMP: 2026-05-12
+  ;; =========================================================================
+  (symbol "BME280" (pin_names (offset 0.254)) (in_bom yes) (on_board yes)
+    (property "Reference" "U" (id 0) (at -7.62 10.16 0))
+    (property "Value" "BME280" (id 1) (at 1.27 10.16 0))
+    (property "Footprint" "Package_LGA:Bosch_LGA-8_2.5x2.5mm_P0.65mm_ClockwisePinNumbering" (id 2) (at 0 -12.7 0))
+    (property "Datasheet" "https://www.bosch-sensortec.com/media/boschsensortec/downloads/datasheets/bst-bme280-ds002.pdf" (id 3) (at 0 0 0))
+    (symbol "BME280_0_1"
+      (rectangle (start -10.16 8.89) (end 10.16 -11.43) (stroke (width 0.254)) (fill (type background)))
+      ;; Power Pins
+      (pin power_in line (at -12.7 6.35 0) (length 2.54)
+        (name "VDD" (effects (font (size 1.27 1.27))))
+        (number "1" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_in line (at -12.7 3.81 0) (length 2.54)
+        (name "VDDIO" (effects (font (size 1.27 1.27))))
+        (number "7" (effects (font (size 1.27 1.27))))
+      )
+      (pin power_in line (at -12.7 -8.89 0) (length 2.54)
+        (name "GND" (effects (font (size 1.27 1.27))))
+        (number "3" (effects (font (size 1.27 1.27))))
+      )
+      ;; Digital I/O Pins
+      (pin bidirectional line (at 12.7 6.35 180) (length 2.54)
+        (name "SDA" (effects (font (size 1.27 1.27))))
+        (number "4" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line (at 12.7 3.81 180) (length 2.54)
+        (name "SCL" (effects (font (size 1.27 1.27))))
+        (number "2" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line (at 12.7 -1.27 180) (length 2.54)
+        (name "CSB" (effects (font (size 1.27 1.27))))
+        (number "5" (effects (font (size 1.27 1.27))))
+      )
+      (pin input line (at 12.7 -3.81 180) (length 2.54)
+        (name "SDO" (effects (font (size 1.27 1.27))))
+        (number "6" (effects (font (size 1.27 1.27))))
+      )
+    )
+  )
+)
