@@ -1,0 +1,14 @@
+{
+  "project_id": "PRGN-2026-001",
+  "owner": "Sateesh Ambesange",
+  "organization": "Pragyan SmartAI Technology LLP",
+  "status": "In-Simulation",
+  "version": "0.4.2",
+  "agent_signoff": {
+    "schematic_agent": "PASS",
+    "analysis_agent": "PASS",
+    "mechanical_agent": "PENDING",
+    "drc_agent": "INITIAL_PASS"
+  },
+  "last_updated": "2026-05-12T14:10:00Z"
+}
