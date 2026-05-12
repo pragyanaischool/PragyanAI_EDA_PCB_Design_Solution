@@ -1,0 +1,9 @@
+(fp_lib_table
+  (lib 
+    (name "Pragyan_Standard")
+    (type "KiCad")
+    (uri "${KIPRJMOD}/design/lib/footprints/Pragyan_Standard.pretty")
+    (options "")
+    (descr "Verified enterprise footprints for SMT assembly")
+  )
+)
