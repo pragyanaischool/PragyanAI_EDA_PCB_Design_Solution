@@ -1,0 +1,18 @@
+{
+  "clearance": {
+    "trace_to_trace": 0.1524,
+    "trace_to_pad": 0.1524,
+    "pad_to_pad": 0.1524
+  },
+  "trace_width": {
+    "minimum": 0.1524,
+    "power_default": 0.3,
+    "signal_default": 0.2
+  },
+  "vias": {
+    "minimum_drill": 0.3,
+    "minimum_annular_ring": 0.15
+  },
+  "layers": 2,
+  "units": "mm"
+}
