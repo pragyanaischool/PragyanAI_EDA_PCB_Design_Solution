@@ -1,0 +1,15 @@
+name: Artifact Cleanup
+
+on:
+  schedule:
+    - cron: '0 0 * * *' # Daily
+
+jobs:
+  delete-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Remove Old Artifacts
+        uses: c-py/action-delete-unused-artifacts@v2
+        with:
+          time-to-live: 30 # Days
+          
