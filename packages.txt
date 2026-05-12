@@ -1,0 +1,5 @@
+kicad
+ngspice
+libngspice0
+jq
+
