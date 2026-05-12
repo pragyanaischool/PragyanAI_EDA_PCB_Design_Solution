@@ -1,0 +1,64 @@
+name: PragyanAI Hardware CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  hardware-validation:
+    name: Validate and Package Hardware
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.10
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.10'
+
+      - name: Install System EDA Dependencies
+        run: |
+          sudo add-apt-repository --yes ppa:kicad/kicad-8.0-releases
+          sudo apt-get update
+          sudo apt-get install --no-install-recommends -y kicad ngspice
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Electrical Simulations (SI/PI)
+        run: python -m design.sim.testbench
+        # This will fail the build if the voltage rails are unstable
+
+      - name: Run Full EDA Orchestrator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          OCTOPART_API_KEY: ${{ secrets.OCTOPART_API_KEY }}
+        run: python orchestrator.py
+        # Generates Gerbers, BOM, and DVR Report
+
+      - name: Check for DRC Violations
+        run: |
+          if [ ! -f design/output/drc_report.json ]; then exit 1; fi
+          STATUS=$(jq -r '.overall_status' design/output/drc_report.json)
+          if [ "$STATUS" != "PASS" ]; then 
+            echo "❌ DRC Validation Failed"; 
+            exit 1; 
+          fi
+
+      - name: Upload Manufacturing Pack
+        uses: actions/upload-artifact@v4
+        with:
+          name: fabrication-package-${{ github.sha }}
+          path: design/output/*.zip
+
+      - name: Upload Design Validation Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: validation-report-${{ github.sha }}
+          path: design/output/docs/DVR_Report.md
