@@ -1,0 +1,61 @@
+{
+  "resistor_0603_10k": {
+    "symbol": "Device:R",
+    "footprint": "Resistor_SMD:R_0603_1608Metric",
+    "mpn": "RC0603FR-0710KL",
+    "manufacturer": "Yageo",
+    "description": "Thick Film Resistor, 10k Ohm, 1/10W, 1%, 0603",
+    "value": "10k",
+    "spice_model": "design/sim/models/res_generic.lib"
+  },
+  "capacitor_0805_10uF": {
+    "symbol": "Device:C",
+    "footprint": "Capacitor_SMD:C_0805_2012Metric",
+    "mpn": "CL21A106KAYNNNE",
+    "manufacturer": "Samsung",
+    "description": "Ceramic Capacitor, 10uF, 25V, X5R, 0805",
+    "value": "10uF",
+    "spice_model": "design/sim/models/cap_generic.lib"
+  },
+  "ams1117_3v3": {
+    "symbol": "Regulator_Linear:AMS1117",
+    "footprint": "Package_TO_SOT_SMD:SOT-223-3_TabPin2",
+    "mpn": "AMS1117-3.3",
+    "manufacturer": "Advanced Monolithic Systems",
+    "description": "1A Low Dropout Voltage Regulator, 3.3V Fixed",
+    "datasheet": "data/raw_datasheets/ams1117.pdf",
+    "spice_model": "design/sim/models/ams1117.lib"
+  },
+  "esp32_wroom_32e": {
+    "symbol": "MCU_Espressif_ESP32:ESP32-WROOM-32E",
+    "footprint": "RF_Module:ESP32-WROOM-32",
+    "mpn": "ESP32-WROOM-32E-N4",
+    "manufacturer": "Espressif Systems",
+    "description": "Wi-Fi+BT+BLE MCU Module, 4MB Flash",
+    "datasheet": "data/raw_datasheets/esp32_wroom_32e.pdf"
+  },
+  "usb_c_receptacle_16pin": {
+    "symbol": "Connector:USB_C_Receptacle_USB2.0",
+    "footprint": "Connector_USB:USB_C_Receptacle_HRO_TYPE-C-31-M-12",
+    "mpn": "TYPE-C-31-M-12",
+    "manufacturer": "HRO Hanrun",
+    "description": "USB-C Connector, 16-Pin, SMT, USB 2.0"
+  },
+  "led_0805_green": {
+    "symbol": "Device:LED",
+    "footprint": "LED_SMD:LED_0805_2012Metric",
+    "mpn": "150080GS75000",
+    "manufacturer": "Wurth Elektronik",
+    "description": "LED Green Clear 0805 SMD"
+  },
+  "mounting_hole_m3": {
+    "symbol": "Mechanical:MountingHole",
+    "footprint": "MountingHole:MountingHole_3.2mm_M3_Pad_Via",
+    "description": "M3 Mounting Hole with Grounded Pad"
+  },
+  "fiducial_standard": {
+    "symbol": "Mechanical:Fiducial",
+    "footprint": "Fiducial:Fiducial_1mm_Mask2mm",
+    "description": "Global Fiducial for SMT Alignment"
+  }
+}
