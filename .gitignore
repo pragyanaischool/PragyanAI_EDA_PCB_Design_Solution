@@ -1,0 +1,13 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# EDA Backups
+*.bak
+*.kicad_pcb-bak
+*.sch-bak
+fp-info-cache
+
+# Local Config
+.env
+design/output/
