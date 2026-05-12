@@ -1,0 +1,55 @@
+{
+  "project": "PragyanAI_Enterprise_Core",
+  "version": "1.0",
+  "total_thickness_mm": 1.6,
+  "finish": "ENIG" ,
+  "layers": [
+    {
+      "name": "Top_Silk",
+      "type": "silkscreen",
+      "material": "Liquid Photo-Imageable Ink",
+      "color": "White",
+      "thickness_mm": 0.015
+    },
+    {
+      "name": "Top_Solder_Mask",
+      "type": "solder_mask",
+      "material": "LPI",
+      "color": "Green",
+      "dielectric_constant": 3.8,
+      "thickness_mm": 0.02
+    },
+    {
+      "name": "F.Cu",
+      "type": "copper",
+      "weight_oz": 1.0,
+      "thickness_mm": 0.035,
+      "purpose": "Signal / Power"
+    },
+    {
+      "name": "Dielectric_1",
+      "type": "prepreg",
+      "material": "FR4-Standard",
+      "dielectric_constant": 4.5,
+      "loss_tangent": 0.02,
+      "thickness_mm": 1.48
+    },
+    {
+      "name": "B.Cu",
+      "type": "copper",
+      "weight_oz": 1.0,
+      "thickness_mm": 0.035,
+      "purpose": "GND Plane"
+    },
+    {
+      "name": "Bottom_Solder_Mask",
+      "type": "solder_mask",
+      "thickness_mm": 0.02
+    },
+    {
+      "name": "Bottom_Silk",
+      "type": "silkscreen",
+      "thickness_mm": 0.015
+    }
+  ]
+}
