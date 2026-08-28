@@ -1,14 +1,14 @@
 streamlit
 # --- Core Hardware Logic (SKiDL) ---
 # Used for Python-based schematic entry and netlist generation
-skidl==1.2.1
+skidl
 
 # --- Simulation & Analysis ---
 # Python wrapper for Ngspice to run SI/PI analysis
-PySpice==1.5
+PySpice
 # Numerical analysis for Thermal Agent calculations
-numpy==1.26.4
-pandas==2.2.1
+numpy
+pandas
 
 # --- KiCad Integration ---
 # Bridge for KiCad 8.0+ CLI and Python API
@@ -17,12 +17,12 @@ pandas==2.2.1
 pykicad
 # --- Supply Chain & AI API Handling ---
 # Used for Octopart/LCSC API calls in BOMAgent
-requests==2.31.0
+requests
 # Handles .env files for GEMINI_API_KEY and other secrets
-python-dotenv==1.0.1
+python-dotenv
 
 # --- Utilities ---
 # Used for parsing PRDs and structuring agent reports
-jsonschema==4.21.1
+jsonschema
 # Used for documentation formatting
-Markdown==3.5.2
+Markdown
