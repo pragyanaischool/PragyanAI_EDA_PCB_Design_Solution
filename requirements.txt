@@ -13,8 +13,8 @@ pandas==2.2.1
 # --- KiCad Integration ---
 # Bridge for KiCad 8.0+ CLI and Python API
 # Note: Requires KiCad to be installed on the system (handled by .yml)
-kicad-python==0.1.0
-
+#kicad-python==0.1.0
+pykicad
 # --- Supply Chain & AI API Handling ---
 # Used for Octopart/LCSC API calls in BOMAgent
 requests==2.31.0
